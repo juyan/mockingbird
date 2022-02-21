@@ -16,6 +16,9 @@ extension Build {
     var requirements: String =
       "./Sources/MockingbirdAutomationCli/Resources/CodesigningRequirements/mockingbird.txt"
     
+    @Flag(help: "Strip the default Swift/Xcode toolchain rpath, such as <Xcode dir>/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx")
+    var stripToolchainPath: Bool = false
+    
     @OptionGroup()
     var globalOptions: Options
     
@@ -51,10 +54,12 @@ extension Build {
                                            configuration: .release,
                                            packageConfiguration: .executables,
                                            package: packagePath)
-      try fixupRpaths(binary: cliPath)
-      if let identity = signingIdentity {
-        try Codesign.sign(binary: cliPath, identity: identity)
-        try Codesign.verify(binary: cliPath, requirements: Path(requirements))
+      if stripToolchainPath {
+        try fixupRpaths(binary: cliPath)
+        if let identity = signingIdentity {
+          try Codesign.sign(binary: cliPath, identity: identity)
+          try Codesign.verify(binary: cliPath, requirements: Path(requirements))
+        }
       }
       if let location = globalOptions.archiveLocation {
         let libRoot = Path("./Sources/MockingbirdCli/Resources/Libraries")
