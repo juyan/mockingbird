@@ -231,6 +231,9 @@
 		D3EC1C0B2490BB92004E555F /* SourceTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EC1C0A2490BB92004E555F /* SourceTarget.swift */; };
 		D3EC1C0D2490BEB5004E555F /* TestTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EC1C0C2490BEB5004E555F /* TestTarget.swift */; };
 		D3EC1C0F2490EC5C004E555F /* Path+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EC1C0E2490EC5C004E555F /* Path+Codable.swift */; };
+		F271927C27C4285B00990943 /* SwiftSyntax in Frameworks */ = {isa = PBXBuildFile; productRef = F271927B27C4285B00990943 /* SwiftSyntax */; };
+		F271927E27C428DA00990943 /* SwiftSyntaxParser in Frameworks */ = {isa = PBXBuildFile; productRef = F271927D27C428DA00990943 /* SwiftSyntaxParser */; };
+		F271928027C428DD00990943 /* SwiftSyntaxBuilder in Frameworks */ = {isa = PBXBuildFile; productRef = F271927F27C428DD00990943 /* SwiftSyntaxBuilder */; };
 		OBJ_1019 /* ChildMockMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_212 /* ChildMockMockableTests.swift */; };
 		OBJ_1020 /* ChildMockStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_213 /* ChildMockStubbableTests.swift */; };
 		OBJ_1021 /* ChildProtocolMockMockableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_214 /* ChildProtocolMockMockableTests.swift */; };
@@ -1066,8 +1069,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
+				F271927E27C428DA00990943 /* SwiftSyntaxParser in Frameworks */,
 				285C8E0D277A87A200DE525A /* MockingbirdCommon.framework in Frameworks */,
 				287F852525194EF5007D135D /* SourceKittenFramework in Frameworks */,
+				F271927C27C4285B00990943 /* SwiftSyntax in Frameworks */,
+				F271928027C428DD00990943 /* SwiftSyntaxBuilder in Frameworks */,
 				287F852E25195011007D135D /* XcodeProj in Frameworks */,
 				287F852225194E16007D135D /* SwiftSyntax in Frameworks */,
 			);
@@ -2262,6 +2268,9 @@
 				287F852125194E16007D135D /* SwiftSyntax */,
 				287F852425194EF5007D135D /* SourceKittenFramework */,
 				287F852D25195011007D135D /* XcodeProj */,
+				F271927B27C4285B00990943 /* SwiftSyntax */,
+				F271927D27C428DA00990943 /* SwiftSyntaxParser */,
+				F271927F27C428DD00990943 /* SwiftSyntaxBuilder */,
 			);
 			productName = MockingbirdGenerator;
 			productReference = "Mockingbird::MockingbirdGenerator::Product" /* MockingbirdGenerator.framework */;
@@ -2362,6 +2371,7 @@
 				287F852925194FEA007D135D /* XCRemoteSwiftPackageReference "XcodeProj" */,
 				28874F8926BF12DD00097529 /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
 				285C8E08277A838600DE525A /* XCRemoteSwiftPackageReference "PathKit" */,
+				F271927A27C4285B00990943 /* XCRemoteSwiftPackageReference "swift-syntax" */,
 			);
 			productRefGroup = OBJ_647 /* Products */;
 			projectDirPath = "";
@@ -3697,6 +3707,14 @@
 				version = 1.0.2;
 			};
 		};
+		F271927A27C4285B00990943 /* XCRemoteSwiftPackageReference "swift-syntax" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-syntax";
+			requirement = {
+				branch = "0.50600.0-SNAPSHOT-2022-01-24";
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -3749,6 +3767,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 28E2A56D277E8F43002975B3 /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
 			productName = ArgumentParser;
+		};
+		F271927B27C4285B00990943 /* SwiftSyntax */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F271927A27C4285B00990943 /* XCRemoteSwiftPackageReference "swift-syntax" */;
+			productName = SwiftSyntax;
+		};
+		F271927D27C428DA00990943 /* SwiftSyntaxParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 287F852025194E16007D135D /* XCRemoteSwiftPackageReference "swift-syntax" */;
+			productName = SwiftSyntaxParser;
+		};
+		F271927F27C428DD00990943 /* SwiftSyntaxBuilder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 287F852025194E16007D135D /* XCRemoteSwiftPackageReference "swift-syntax" */;
+			productName = SwiftSyntaxBuilder;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
