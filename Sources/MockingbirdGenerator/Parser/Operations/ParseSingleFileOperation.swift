@@ -50,9 +50,11 @@ class ParseSingleFileOperation: BasicOperation {
     ParseSingleFileOperation.memoizedParsedFiles.update { $0[sourcePath] = parsedFile }
     result.parsedFile = parsedFile
     
+
+    /*
     let totalImportDeclarations = swiftSyntaxResult.importDeclarations.count
     let totalCompilationDirectives = swiftSyntaxResult.compilationDirectives.count
-    log("Parsed \(totalImportDeclarations) import declaration\(totalImportDeclarations != 1 ? "s" : "") and \(totalCompilationDirectives) compiler directive\(totalCompilationDirectives != 1 ? "s" : "") in source file at \(sourcePath.path)")
+    log("Parsed \(totalImportDeclarations) import declaration\(totalImportDeclarations != 1 ? "s" : "") and \(totalCompilationDirectives) compiler directive\(totalCompilationDirectives != 1 ? "s" : "") in source file at \(sourcePath.path)")*/
     if shouldMock {
       log("Parsed source structure for module \(sourcePath.moduleName.singleQuoted) at \(sourcePath.path)")
     } else {
@@ -76,9 +78,11 @@ class ParseSourceKitOperation: BasicOperation {
   }
   
   override func run() throws {
+    log("Start SourceKit parsing for file \(sourcePath.path.string)")
     let file = try sourcePath.path.getFile()
     result.file = file
     result.structure = try Structure(file: file)
+    log("Finished SourceKit parsing for file \(sourcePath.path.string)")
   }
 }
 
@@ -98,6 +102,7 @@ class ParseSwiftSyntaxOperation: BasicOperation {
   
   override func run() throws {
     // File reading is not shared with the parse SourceKit operation, but parsing >> reading.
+    log("Start SwiftSyntax parsing for file \(sourcePath.path.string)")
     let file = try sourcePath.path.getFile()
     let sourceFile = try SyntaxParser.parse(source: file.contents)
     let parser = SourceFileAuxiliaryParser(with: {
@@ -108,6 +113,7 @@ class ParseSwiftSyntaxOperation: BasicOperation {
     // All Swift files implicitly import the Swift standard library.
     result.importDeclarations = parser.importedPaths.union([ImportDeclaration("Swift")])
     result.compilationDirectives = parser.directives.sorted()
+    log("Finished SwiftSyntax parsing for file \(sourcePath.path.string)")
   }
 }
 
