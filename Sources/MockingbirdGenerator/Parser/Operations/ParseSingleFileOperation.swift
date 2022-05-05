@@ -78,11 +78,11 @@ class ParseSourceKitOperation: BasicOperation {
   }
   
   override func run() throws {
-    log("Start SourceKit parsing for file \(sourcePath.path.string)")
+    log("[DEBUG][SourceKit][\(sourcePath.path.string)] Parsing started")
     let file = try sourcePath.path.getFile()
     result.file = file
     result.structure = try Structure(file: file)
-    log("Finished SourceKit parsing for file \(sourcePath.path.string)")
+    log("[DEBUG][SourceKit][\(sourcePath.path.string)] Parsing finished")
   }
 }
 
@@ -102,7 +102,7 @@ class ParseSwiftSyntaxOperation: BasicOperation {
   
   override func run() throws {
     // File reading is not shared with the parse SourceKit operation, but parsing >> reading.
-    log("Start SwiftSyntax parsing for file \(sourcePath.path.string)")
+    log("[DEBUG][SwiftSyntax][\(sourcePath.path.string)] Parsing started")
     let file = try sourcePath.path.getFile()
     let sourceFile = try SyntaxParser.parse(source: file.contents)
     let parser = SourceFileAuxiliaryParser(with: {
@@ -113,7 +113,7 @@ class ParseSwiftSyntaxOperation: BasicOperation {
     // All Swift files implicitly import the Swift standard library.
     result.importDeclarations = parser.importedPaths.union([ImportDeclaration("Swift")])
     result.compilationDirectives = parser.directives.sorted()
-    log("Finished SwiftSyntax parsing for file \(sourcePath.path.string)")
+    log("[DEBUG][SwiftSyntax][\(sourcePath.path.string)] Parsing finished")
   }
 }
 
